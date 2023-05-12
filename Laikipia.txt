@@ -1,0 +1,78 @@
+var roi = 
+    /* color: #d63000 */
+    /* shown: false */
+    /* displayProperties: [
+      {
+        "type": "rectangle"
+      }
+    ] */
+    ee.Geometry.Polygon(
+        [[[36.20141147018815, 0.9110810330076378],
+          [36.20141147018815, -0.2973753282073877],
+          [37.41540072800065, -0.2973753282073877],
+          [37.41540072800065, 0.9110810330076378]]], null, false),
+    image_style = {"opacity":1,"bands":["B11","B8","B4"],"min":0.012900000438094139,"max":0.4449999928474426,"gamma":1},
+    imageVisParam = {"opacity":1,"bands":["B11","B8","B4"],"min":0.012900000438094139,"max":0.4449999928474426,"gamma":1},
+    laikipia_county = 
+    /* color: #98ff00 */
+    /* shown: false */
+    ee.Geometry.Polygon(
+        [[[36.46887724489407, 0.8466730461524925],
+          [36.35352079958157, 0.6599216925574516],
+          [36.25464384645657, 0.6544288898278674],
+          [36.28210966676907, 0.539078720811535],
+          [36.21069853395657, 0.42921937862127185],
+          [36.26563017458157, 0.33034460990185915],
+          [36.26013701051907, 0.24245509154358777],
+          [36.26013701051907, 0.0227292520487688],
+          [36.39197294801907, 0.03371557882413974],
+          [36.47986357301907, 0.12160611447004015],
+          [36.53479521364407, 0.03371557882413974],
+          [36.57874052614407, -0.05417503615773292],
+          [36.65564482301907, -0.16403810138179883],
+          [36.83691923708157, -0.08713399501846032],
+          [36.84790556520657, -0.24643502659396363],
+          [36.94678251833157, -0.29037985581856957],
+          [37.05664579958157, -0.21896943307031116],
+          [36.99622099489407, -0.06516135830841197],
+          [37.24341337770657, 0.09414034309983318],
+          [37.38623564333157, 0.2863999349621569],
+          [37.38074247926907, 0.5171069980038118],
+          [36.84790556520657, 0.5610503643424061],
+          [36.93579619020657, 0.6654144892217182],
+          [36.90833036989407, 0.769776406301276],
+          [36.80396025270657, 0.868643240610361]]]);
+		  
+function maskS2clouds(image) {
+  var qa = image.select('QA60');
+
+  // Bits 10 and 11 are clouds and cirrus, respectively.
+  var cloudBitMask = 1 << 10;
+  var cirrusBitMask = 1 << 11;
+
+  // Both flags should be set to zero, indicating clear conditions.
+  var mask = qa.bitwiseAnd(cloudBitMask).eq(0)
+      .and(qa.bitwiseAnd(cirrusBitMask).eq(0));
+
+  return image.updateMask(mask).divide(10000);
+}
+var dataset =ee.ImageCollection('COPERNICUS/S2')
+             .filterBounds(roi)
+             .filterDate('2019-01-01','2019-12-31')
+             .filterMetadata('CLOUDY_PIXEL_PERCENTAGE','less_than',20)
+             .map(maskS2clouds)
+             .median()
+var final_image=dataset.clip(laikipia_county)
+//Map.addLayer(dataset,image_style,'Final_Image')
+
+Map.addLayer(final_image,image_style,'Final_Image_v2')
+
+Export.image.toDrive({
+  image: final_image,
+  description: 'Sentinel_Laikipia_County',
+  //folder: 'ee_demos',
+  region: laikipia_county,
+  scale: 20,
+  maxPixels: 1e9
+  //crs: 'EPSG:5070'
+});
