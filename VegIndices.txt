@@ -4,14 +4,14 @@ For Sentinel-2 the formula is: B8 / B4, where: B8 = 842 nm, B4 = 665 nm
 2) PSSRa - Pigment Specific Simple Ratio (chlorophyll index) algorithm (Blackburn, 1998) investigates the potential of a range of spectral approaches for quantifying pigments at the scale of the whole plant canopy.
 PSSRa = (NIR) / (Red)
 For Sentinel-2 the formula is: B7 / B4, where: B7 = 783 nm, B4 = 665 nm
-3)NDVI = (NIR – Red) / (NIR + R)
+3)NDVI = (NIR â€“ Red) / (NIR + R)
 For Sentinel-2 the formula is: (B8 - B4) / (B8 + B4)
 where: B8 = 842 nm, B4 = 665 nm
 NDVI range value is -1 to 1
 4)TNDVI - Transformed Normalized Difference Vegetation Index, indicates a relation between the amount of green biomass that is found in a pixel. It has always positive values and the variances of the ratio are proportional to mean values (Senseman et al. 1996).
 TNDVI = (sqrt(NDVI + 0.5))
 NDI45M - Normalized Difference Index (Delegido et al. 2011), is more linear, with less saturation at higher values than the NDVI
-NDI45 = (NIR – R) / (NIR + R)
+NDI45 = (NIR â€“ R) / (NIR + R)
 For Sentinel-2 the formula is: (B5 - B4) / (B5 + B4), where: B5 = 705 nm, B4 = 665 nm
 5)GNDVI - Green Normalized Difference Vegetation Index (Gitelson et al. 1996) is more sensitive than NDVI to different concentration rates of chlorophyll, which is highly correlated at nitrogen.
 GNDVI = NIR - Green / NIR + Green
