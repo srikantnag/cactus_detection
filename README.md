@@ -3,3 +3,5 @@
 Laikipia.txt
 ## Tiff downloaded google drive link
 https://drive.google.com/file/d/1Gf9oS-AIeyPSIfRrv0oiWI7DgVwsuQds/view?usp=sharing
+## Vegetaion Index Reference
+VegIndices.txt
