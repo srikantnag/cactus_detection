@@ -1,0 +1,37 @@
+1) RVI - Ratio Vegetation Index
+RVI = (NIR / Red)
+For Sentinel-2 the formula is: B8 / B4, where: B8 = 842 nm, B4 = 665 nm
+2) PSSRa - Pigment Specific Simple Ratio (chlorophyll index) algorithm (Blackburn, 1998) investigates the potential of a range of spectral approaches for quantifying pigments at the scale of the whole plant canopy.
+PSSRa = (NIR) / (Red)
+For Sentinel-2 the formula is: B7 / B4, where: B7 = 783 nm, B4 = 665 nm
+3)NDVI = (NIR – Red) / (NIR + R)
+For Sentinel-2 the formula is: (B8 - B4) / (B8 + B4)
+where: B8 = 842 nm, B4 = 665 nm
+NDVI range value is -1 to 1
+4)TNDVI - Transformed Normalized Difference Vegetation Index, indicates a relation between the amount of green biomass that is found in a pixel. It has always positive values and the variances of the ratio are proportional to mean values (Senseman et al. 1996).
+TNDVI = (sqrt(NDVI + 0.5))
+NDI45M - Normalized Difference Index (Delegido et al. 2011), is more linear, with less saturation at higher values than the NDVI
+NDI45 = (NIR – R) / (NIR + R)
+For Sentinel-2 the formula is: (B5 - B4) / (B5 + B4), where: B5 = 705 nm, B4 = 665 nm
+5)GNDVI - Green Normalized Difference Vegetation Index (Gitelson et al. 1996) is more sensitive than NDVI to different concentration rates of chlorophyll, which is highly correlated at nitrogen.
+GNDVI = NIR - Green / NIR + Green
+6)MCARI - Modified Chlorophyll Absorption Ratio Index - is responsive to both leaf chlorophyll concentrations and ground reflectance.
+MCARI = ((Red2 - Red1) - 0.2 * (Red2 - Green)) * (Red2 / Red1)
+For Sentinel-2 the formula is:
+[(B5 - B4) - 0.2 * (B5 - B3)] * (B5 - B4),
+where: B5 = 705 nm, B4 = 665 nm, B3 = 560 nm
+7)S2REP - Sentinel-2 Red-Edge Position Index is sensitive to both crop (chlorophyll content) N and growth status. Generally, the higher the S2REP value, the higher is the chlorophyll content (Guyot and Baret, 1988). The Sentinel-2 Band 6 (740 nm) measures the reflectance situated at the top of the linear part of the 'red edge' slope.
+S2REP = 705 + 35 * ((Red1 + NIR)/2) - Red2 / (Red3 - Red2))
+For Sentinel-2 the formula is:
+705 + 35 * ((B4 + B7)/2) - B5 / (B6 - B5)),
+where: B7 = 783 nm, B6 = 740 nm, B5 = 705 nm, B4 = 665 nm
+8)IRECI - Inverted Red-Edge Chlorophyll Index algorithm incorporates the reflectance in four bands to estimate canopy chlorophyll content (Guyot and Baret, 1988; Clevers et al., 2000).
+IRECI = (NIR - Red1) / (Red2 / Red3)
+For Sentinel-2 the formula is:
+(B7 - B4) / (B5 / B6),
+where: B7 = 783 nm, B6 = 740 nm, B5 = 705 nm,
+B4 = 665 nm
+ref: https://custom-scripts.sentinel-hub.com/custom-scripts/sentinel-2/indexdb/
+Also we canpick up some vegetation indices from 
+https://custom-scripts.sentinel-hub.com/custom-scripts/sentinel-2/indexdb/
+https://github.com/awesome-spectral-indices/awesome-spectral-indices
